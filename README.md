@@ -69,10 +69,6 @@ nix flake update monstar
 ## Caveats
 
 - **x86_64-linux only** — no other systems are declared.
-- **From source without the cache.** With the [binary cache](#binary-cache) you
-  fetch a prebuilt binary; otherwise (or when built against a different nixpkgs)
-  the ReleaseFast compile of ghostty-vt + monstar is largely single-threaded, so
-  expect several minutes (cached locally afterwards).
 - **Baseline CPU** (`-Dcpu=baseline`) for a portable binary, not native-tuned.
 - **Needs working OpenGL at runtime.** `autoPatchelfHook` wires libGL, Wayland,
   fontconfig, etc., but the GL driver itself comes from the host (on NixOS,
