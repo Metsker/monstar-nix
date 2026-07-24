@@ -50,8 +50,8 @@ nix flake update monstar
 ```
 
 `monstar-src` is this repo's *internal* input (the upstream source). You only
-touch it when bumping this repo's own pin, which also requires regenerating
-`deps.nix` — see [Regenerating deps.nix](#regenerating-depsnix).
+touch it when bumping this repo's own pin — and that also means regenerating
+`deps.nix` with `./update-deps.sh` (the daily Action does both for you).
 
 ## Caveats
 
@@ -68,10 +68,5 @@ touch it when bumping this repo's own pin, which also requires regenerating
   HTTP fetcher can't run inside the Nix sandbox and `zig build --system` hangs
   on monstar's lazy ghostty dependency graph. **Consequence:** a plain
   `nix flake update monstar-src` is not enough when a bump changes monstar's
-  dependency set — `deps.nix` must be regenerated too (one command, below), or
-  the build fails.
-monstar's own deps (`nix-prefetch-git` for git deps, `nix store prefetch-file`
-for raw tarballs — the same fetchers `deps.nix` uses), and splices them in. It
-needs `curl`, `jq`, and `nix` on `PATH`. If monstar ever adds an https
-*package-dir* dep (not a raw tarball), the script stops and asks for a new case
-rather than emitting a wrong hash.
+  dependency set — `deps.nix` must be regenerated too (run `./update-deps.sh`),
+  or the build fails.
