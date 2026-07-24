@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "monstar-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784822624,
+        "narHash": "sha256-0TjK/SXRAYYOmSbfXCj/v85zY6L1LDUKcxN7PGE6Cd0=",
+        "owner": "rockorager",
+        "repo": "monstar",
+        "rev": "a9d2a253720eb9daa0f323259db96674aa8e16f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rockorager",
+        "repo": "monstar",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1784796856,
+        "narHash": "sha256-wWFrV5/Qbm+lyt5x20E/bSbfJiGKMo4RCxZV8cl/WZI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e2587caef70cea85dd97d7daab492899902dbf5d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "monstar-src": "monstar-src",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
