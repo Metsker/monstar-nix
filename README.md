@@ -39,11 +39,19 @@ Outputs: `packages.x86_64-linux.default` and `apps.x86_64-linux.default`.
 ## Versioning
 
 Tracks monstar's upstream `main`; `flake.lock` pins the exact commit, so builds
-are reproducible. Bump to the latest upstream commit with:
+are reproducible. The pin advances on its own — a daily GitHub Action bumps it
+to the latest upstream commit and commits the result.
+
+To pull a newer monstar into **your own** config, update the input under the
+name *you* gave it (`monstar` in the example above):
 
 ```sh
-nix flake update monstar-src
+nix flake update monstar
 ```
+
+`monstar-src` is this repo's *internal* input (the upstream source). You only
+touch it when bumping this repo's own pin, which also requires regenerating
+`deps.nix` — see [Regenerating deps.nix](#regenerating-depsnix).
 
 ## Caveats
 
