@@ -74,6 +74,10 @@ nix flake update monstar-src   # move the pin to latest monstar main
 nix build                      # verify
 ```
 
+A weekly GitHub Action (`.github/workflows/update-deps.yml`) runs exactly this,
+verifies the result with `nix build`, and commits any change — so the pin stays
+current on its own. Trigger it by hand from the repo's Actions tab too.
+
 `update-deps.sh` reads the locked rev from `flake.lock`, fetches ghostty's
 `build.zig.zon.nix` at the rev monstar pins, recomputes the Nix hashes for
 monstar's own deps (`nix-prefetch-git` for git deps, `nix store prefetch-file`
