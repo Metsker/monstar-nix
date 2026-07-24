@@ -60,18 +60,24 @@ nix flake update monstar-src
   HTTP fetcher can't run inside the Nix sandbox and `zig build --system` hangs
   on monstar's lazy ghostty dependency graph. **Consequence:** a plain
   `nix flake update monstar-src` is not enough when a bump changes monstar's
-  dependency set — `deps.nix` must be regenerated too, or the build fails.
+  dependency set — `deps.nix` must be regenerated too (one command, below), or
+  the build fails.
 
 ## Regenerating deps.nix
 
 `deps.nix` is ghostty's own `build.zig.zon.nix` (its full transitive tree, at
-the ghostty commit monstar pins) plus monstar's four direct deps. After a bump
-that changes dependencies:
+the ghostty commit monstar pins) plus monstar's direct deps. Bump and regenerate:
 
-1. Read the pinned ghostty rev from monstar's `build.zig.zon`.
-2. Fetch that rev's list:
-   `https://raw.githubusercontent.com/ghostty-org/ghostty/<rev>/build.zig.zon.nix`
-3. Append monstar's direct deps (ghostty, zig-wayland, z2d, iterm2_themes) with
-   their Nix hashes — e.g. run [`zon2nix`](https://github.com/jcollie/zon2nix) on
-   monstar's `build.zig.zon` and lift those entries in.
-4. Bump `version` in `package.nix` if it changed, then `nix build`.
+```sh
+nix flake update monstar-src   # move the pin to latest monstar main
+./update-deps.sh               # rewrite deps.nix + package.nix version for that pin
+nix build                      # verify
+```
+
+`update-deps.sh` reads the locked rev from `flake.lock`, fetches ghostty's
+`build.zig.zon.nix` at the rev monstar pins, recomputes the Nix hashes for
+monstar's own deps (`nix-prefetch-git` for git deps, `nix store prefetch-file`
+for raw tarballs — the same fetchers `deps.nix` uses), and splices them in. It
+needs `curl`, `jq`, and `nix` on `PATH`. If monstar ever adds an https
+*package-dir* dep (not a raw tarball), the script stops and asks for a new case
+rather than emitting a wrong hash.
