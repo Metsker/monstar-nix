@@ -36,7 +36,8 @@ jobs:
 
   update:
     needs: check
-    if: needs.check.outputs.changed == 'true'
+    # Bumps run on schedule; a manual dispatch also builds, to warm the cache.
+    if: needs.check.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -45,6 +46,11 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: monstar-nix
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Bump pin and regenerate deps
         run: |
@@ -61,8 +67,8 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Verify build
-        if: steps.diff.outputs.changed == 'true'
+      - name: Verify build (cachix pushes the result)
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
         run: nix build -L
 
       - name: Commit and push

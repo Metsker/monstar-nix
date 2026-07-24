@@ -21,10 +21,7 @@ nix profile install github:Metsker/monstar-nix
 As an input in a NixOS / home-manager flake:
 
 ```nix
-inputs.monstar = {
-  url = "github:Metsker/monstar-nix";
-  inputs.nixpkgs.follows = "nixpkgs";
-};
+inputs.monstar.url = "github:Metsker/monstar-nix";
 ```
 
 ```nix
@@ -35,6 +32,26 @@ environment.systemPackages = [ inputs.monstar.packages.${pkgs.system}.default ];
 ```
 
 Outputs: `packages.x86_64-linux.default` and `apps.x86_64-linux.default`.
+
+## Binary cache
+
+CI pushes every build to [Cachix](https://monstar-nix.cachix.org), so you can
+fetch the binary instead of compiling. This flake declares the cache in its
+`nixConfig`, so `nix run` / `nix build` offer to use it. For a NixOS or
+home-manager config, add it to your nix settings:
+
+```nix
+nix.settings = {
+  extra-substituters = [ "https://monstar-nix.cachix.org" ];
+  extra-trusted-public-keys = [
+    "monstar-nix.cachix.org-1:G4AwywJYcXY5Zl9G2nYOBV3SYK/tHV8Jlp93mMouR1o="
+  ];
+};
+```
+
+Cache hits require building against **this flake's pinned nixpkgs**, so add the
+input *without* `inputs.nixpkgs.follows` (as shown above): a different nixpkgs
+changes the store path and falls back to a source build.
 
 ## Versioning
 
@@ -52,9 +69,10 @@ nix flake update monstar
 ## Caveats
 
 - **x86_64-linux only** — no other systems are declared.
-- **Built from source, no binary cache.** The first build compiles ghostty-vt
-  and monstar; the ReleaseFast LLVM pass is largely single-threaded, so expect
-  several minutes (cached afterwards).
+- **From source without the cache.** With the [binary cache](#binary-cache) you
+  fetch a prebuilt binary; otherwise (or when built against a different nixpkgs)
+  the ReleaseFast compile of ghostty-vt + monstar is largely single-threaded, so
+  expect several minutes (cached locally afterwards).
 - **Baseline CPU** (`-Dcpu=baseline`) for a portable binary, not native-tuned.
 - **Needs working OpenGL at runtime.** `autoPatchelfHook` wires libGL, Wayland,
   fontconfig, etc., but the GL driver itself comes from the host (on NixOS,
