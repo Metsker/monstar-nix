@@ -1,8 +1,8 @@
 # monstar-nix
 
 A Nix flake that packages [monstar](https://github.com/rockorager/monstar) —
-rockorager's Zig/Wayland terminal — which ships no Nix packaging of its own.
-Unofficial; not affiliated with upstream.
+rockorager's Zig/Wayland terminal.
+Unofficial.
 
 ## Use
 
@@ -62,27 +62,6 @@ nix flake update monstar-src
   `nix flake update monstar-src` is not enough when a bump changes monstar's
   dependency set — `deps.nix` must be regenerated too (one command, below), or
   the build fails.
-
-## Regenerating deps.nix
-
-`deps.nix` is ghostty's own `build.zig.zon.nix` (its full transitive tree, at
-the ghostty commit monstar pins) plus monstar's direct deps. Bump and regenerate:
-
-```sh
-nix flake update monstar-src   # move the pin to latest monstar main
-./update-deps.sh               # rewrite deps.nix + package.nix version for that pin
-nix build                      # verify
-```
-
-A daily GitHub Action (`.github/workflows/update-deps.yml`) runs exactly this,
-verifies the result with `nix build`, and commits any change — so the pin stays
-current on its own. Trigger it by hand from the repo's Actions tab too. A cheap
-`git ls-remote` step gates the expensive Nix job, running only when monstar's
-default branch has actually moved, so the poll interval can be dropped to hourly
-(`0 * * * *`) for near-immediate reaction at no real cost.
-
-`update-deps.sh` reads the locked rev from `flake.lock`, fetches ghostty's
-`build.zig.zon.nix` at the rev monstar pins, recomputes the Nix hashes for
 monstar's own deps (`nix-prefetch-git` for git deps, `nix store prefetch-file`
 for raw tarballs — the same fetchers `deps.nix` uses), and splices them in. It
 needs `curl`, `jq`, and `nix` on `PATH`. If monstar ever adds an https
