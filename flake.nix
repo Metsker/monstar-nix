@@ -3,8 +3,8 @@
 
   # Pull prebuilt binaries from the cache CI populates (see README).
   nixConfig = {
-    extra-substituters = [ "https://monstar-nix.cachix.org" ];
-    extra-trusted-public-keys = [ "monstar-nix.cachix.org-1:G4AwywJYcXY5Zl9G2nYOBV3SYK/tHV8Jlp93mMouR1o=" ];
+    extra-substituters = [ "https://monstar.cachix.org" ];
+    extra-trusted-public-keys = [ "monstar.cachix.org-1:75M9ke+wZlmUcNsXpDae9793qhdRgtlNUEu/mW7u20c=" ];
   };
 
   inputs = {

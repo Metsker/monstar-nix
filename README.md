@@ -35,16 +35,16 @@ Outputs: `packages.x86_64-linux.default` and `apps.x86_64-linux.default`.
 
 ## Binary cache
 
-CI pushes every build to [Cachix](https://monstar-nix.cachix.org), so you can
+CI pushes every build to [Cachix](https://monstar.cachix.org), so you can
 fetch the binary instead of compiling. This flake declares the cache in its
 `nixConfig`, so `nix run` / `nix build` offer to use it. For a NixOS or
 home-manager config, add it to your nix settings:
 
 ```nix
 nix.settings = {
-  extra-substituters = [ "https://monstar-nix.cachix.org" ];
+  extra-substituters = [ "https://monstar.cachix.org" ];
   extra-trusted-public-keys = [
-    "monstar-nix.cachix.org-1:G4AwywJYcXY5Zl9G2nYOBV3SYK/tHV8Jlp93mMouR1o="
+    "monstar.cachix.org-1:75M9ke+wZlmUcNsXpDae9793qhdRgtlNUEu/mW7u20c="
   ];
 };
 ```

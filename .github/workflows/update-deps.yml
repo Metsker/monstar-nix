@@ -49,7 +49,7 @@ jobs:
 
       - uses: cachix/cachix-action@v15
         with:
-          name: monstar-nix
+          name: monstar
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Bump pin and regenerate deps
