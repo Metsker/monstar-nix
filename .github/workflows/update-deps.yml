@@ -21,7 +21,7 @@ jobs:
     outputs:
       changed: ${{ steps.tip.outputs.changed }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - id: tip
         run: |
           locked=$(jq -r '.nodes["monstar-src"].locked.rev' flake.lock)
@@ -40,7 +40,7 @@ jobs:
     if: needs.check.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: cachix/install-nix-action@v30
         with:
