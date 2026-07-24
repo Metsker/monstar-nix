@@ -1,9 +1,10 @@
 name: update-deps
 
-# Bump monstar to latest main, regenerate deps.nix, verify it builds, commit.
+# Track monstar upstream: bump the pin, regenerate deps.nix, verify, commit.
+# A cheap tip-check gates the expensive nix job, so polling often is ~free.
 on:
   schedule:
-    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+    - cron: "0 6 * * *" # daily 06:00 UTC (use "0 * * * *" for hourly; the check job stays cheap)
   workflow_dispatch: # manual "Run workflow" button
 
 permissions:
@@ -14,7 +15,28 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Seconds, no nix: has monstar's default branch moved past our locked rev?
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.tip.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: tip
+        run: |
+          locked=$(jq -r '.nodes["monstar-src"].locked.rev' flake.lock)
+          upstream=$(git ls-remote https://github.com/rockorager/monstar HEAD | cut -f1)
+          echo "locked=$locked  upstream=$upstream"
+          [ -n "$upstream" ] || { echo "could not read upstream HEAD" >&2; exit 1; }
+          if [ "$locked" = "$upstream" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
   update:
+    needs: check
+    if: needs.check.outputs.changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

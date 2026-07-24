@@ -74,9 +74,12 @@ nix flake update monstar-src   # move the pin to latest monstar main
 nix build                      # verify
 ```
 
-A weekly GitHub Action (`.github/workflows/update-deps.yml`) runs exactly this,
+A daily GitHub Action (`.github/workflows/update-deps.yml`) runs exactly this,
 verifies the result with `nix build`, and commits any change — so the pin stays
-current on its own. Trigger it by hand from the repo's Actions tab too.
+current on its own. Trigger it by hand from the repo's Actions tab too. A cheap
+`git ls-remote` step gates the expensive Nix job, running only when monstar's
+default branch has actually moved, so the poll interval can be dropped to hourly
+(`0 * * * *`) for near-immediate reaction at no real cost.
 
 `update-deps.sh` reads the locked rev from `flake.lock`, fetches ghostty's
 `build.zig.zon.nix` at the rev monstar pins, recomputes the Nix hashes for
