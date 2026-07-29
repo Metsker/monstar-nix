@@ -440,11 +440,11 @@ in
       };
     }
     {
-      name = "ghostty-1.3.2-dev-5UdBC4JhJgXdhefpqPX727nCW5VepJv5QfDEU3nwsyDM";
+      name = "ghostty-1.3.2-dev-5UdBC-yCJgWpMH-KL6YOZCHYDlpBV0Y-C59LEFzoxY8p";
       path = fetchZigArtifact {
         name = "ghostty";
-        url = "git+https://github.com/ghostty-org/ghostty.git#2dd79f3bc6af649e68422b08e21ad0300fd8b391";
-        hash = "sha256-FzP3/NJEVZRiYIrlMU+ulgCPUT04MPj8HG+MK0aBDzQ=";
+        url = "git+https://github.com/ghostty-org/ghostty.git#03eaa01d484b8c6a098bc94c948e474f33879677";
+        hash = "sha256-eOb6WhLnV32w6eCx7jzlXoP2+4xjGKxbK0O93bhR+hA=";
         unpack = true;
       };
     }
