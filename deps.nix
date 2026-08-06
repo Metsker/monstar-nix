@@ -161,11 +161,11 @@ in
       };
     }
     {
-      name = "gobject-0.3.1-Skun7E1KnwBGMX5nslHYG1yWHaSevywxQO8oM7tTOgIp";
+      name = "gobject-0.3.2-Skun7F6HogCMynX2JqeSHS7xr-8pK4ob-qRFIcEasVi3";
       path = fetchZigArtifact {
         name = "gobject";
-        url = "https://deps.files.ghostty.org/gobject-2026-04-23-26-1.tar.zst";
-        hash = "sha256-cZGf9a1+sDeORKWYIdzQ/5KLT7l/9pgPc2cIbqfBc4o=";
+        url = "https://github.com/ghostty-org/zig-gobject/releases/download/0.10.0-2026-07-28-36-1/ghostty-gobject-0.10.0-2026-07-28-36-1.tar.zst";
+        hash = "sha256-dyCfm2XjiAk30zccjD6AgKFBdE7IRsJuoqnscfvnWSQ=";
         unpack = true;
       };
     }
@@ -308,7 +308,7 @@ in
       name = "translate_c-0.0.0-Q_BUWmU6BwB_9JKG2l2W7i_mhmYWeRseTGBEHi_YlV5f";
       path = fetchZigArtifact {
         name = "translate_c";
-        url = "https://codeberg.org/vancluever/translate-c/archive/80f8b6e4f45a303268717d8e5f4f91d7837138bb.tar.gz";
+        url = "https://deps.files.ghostty.org/translate_c-80f8b6e4f45a303268717d8e5f4f91d7837138bb.tar.gz";
         hash = "sha256-fB7OsZ2PIijMzVMYg8SzDBtTKX7IZHbEvPuBTdyGtWk=";
         unpack = true;
       };
@@ -380,7 +380,7 @@ in
       name = "z2d-0.12.1-j5P_Hsw8EQAKyZTQICCQnAH2xYkLDW8k9uefbsYdfPZ-";
       path = fetchZigArtifact {
         name = "z2d";
-        url = "https://github.com/vancluever/z2d/archive/7dbae85c81784dba9988320bf9543ed9a81350c8.tar.gz";
+        url = "https://deps.files.ghostty.org/z2d-7dbae85c81784dba9988320bf9543ed9a81350c8.tar.gz";
         hash = "sha256-Fjr1ORn0ozxU7QY09o2ZOZQHIJsXfVw0UCdZxTKmZJ0=";
         unpack = true;
       };
@@ -440,11 +440,11 @@ in
       };
     }
     {
-      name = "ghostty-1.3.2-dev-5UdBC-yCJgWpMH-KL6YOZCHYDlpBV0Y-C59LEFzoxY8p";
+      name = "ghostty-1.3.2-dev-5UdBC77jPAVhNK7BJBrcGwNVvAYqeOUYAUUaoAw6Lifr";
       path = fetchZigArtifact {
         name = "ghostty";
-        url = "git+https://github.com/ghostty-org/ghostty.git#03eaa01d484b8c6a098bc94c948e474f33879677";
-        hash = "sha256-eOb6WhLnV32w6eCx7jzlXoP2+4xjGKxbK0O93bhR+hA=";
+        url = "git+https://github.com/ghostty-org/ghostty.git#9ed61428daa9f15b2dc89e73f9fe0d16d3a6bb71";
+        hash = "sha256-44lZqmDpcVlkBNlPa+LFzvrkDHqrJm0DMTSGJTN7mTg=";
         unpack = true;
       };
     }
