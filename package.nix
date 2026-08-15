@@ -18,7 +18,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "monstar";
-  version = "0.2.0";
+  version = "1.0.1";
   inherit src;
 
   # Complete Zig dep tree fetched by nix (ghostty's build.zig.zon.nix plus
