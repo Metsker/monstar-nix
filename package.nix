@@ -7,6 +7,7 @@
   pkg-config,
   wayland-scanner,
   wayland-protocols,
+  ncurses,
   autoPatchelfHook,
   wayland,
   libxkbcommon,
@@ -33,6 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     wayland-scanner
     wayland-protocols
+    ncurses # provides `tic`, which the build runs to compile the terminfo
     autoPatchelfHook
   ];
 
