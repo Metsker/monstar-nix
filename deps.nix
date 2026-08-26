@@ -164,7 +164,7 @@ in
       name = "gobject-0.3.2-Skun7F6HogCMynX2JqeSHS7xr-8pK4ob-qRFIcEasVi3";
       path = fetchZigArtifact {
         name = "gobject";
-        url = "https://github.com/ghostty-org/zig-gobject/releases/download/0.10.0-2026-07-28-36-1/ghostty-gobject-0.10.0-2026-07-28-36-1.tar.zst";
+        url = "https://deps.files.ghostty.org/gobject-2026-07-28-36-1.tar.zst";
         hash = "sha256-dyCfm2XjiAk30zccjD6AgKFBdE7IRsJuoqnscfvnWSQ=";
         unpack = true;
       };
@@ -371,9 +371,9 @@ in
       name = "N-V-__8AAP5JWgCGP_AD0teWpa4krRvE9VPZzvviGdbmN4jI";
       path = fetchZigArtifact {
         name = "wuffs";
-        url = "git+https://github.com/google/wuffs-mirror-release-c.git?rev=v0.4.0-alpha.10#7411f488fe2e2c205c3d3b3d28638b7356522930";
-        hash = "sha256-AMuAaCbNJYnSeac1B1IRSUh4rlE2KphT04/Ak4Pig5M=";
-        unpack = true;
+        url = "https://deps.files.ghostty.org/wuffs-7411f488fe2e2c205c3d3b3d28638b7356522930.tar.gz";
+        hash = "sha256-F4d9NG95iGUdbGLkWy47BchoCaZELF40YSN0sqlxmhw=";
+        unpack = false;
       };
     }
     {
@@ -440,11 +440,11 @@ in
       };
     }
     {
-      name = "ghostty-1.3.2-dev-5UdBC_9vSgUyT5RBdy1aJvwUDzVQDymu0U5b5HXbGSkD";
+      name = "ghostty-1.3.2-dev-5UdBCyXBUgVq7uJjVAyUaZJ1kHRCPIhfg8SnptGRwnn1";
       path = fetchZigArtifact {
         name = "ghostty";
-        url = "git+https://github.com/ghostty-org/ghostty.git#8d6d300cdf0ea95626424f25c82341dfdfb4a802";
-        hash = "sha256-6ACEcrp1kjqwWmPbBnJMSAFLVkTZsuY9Feu5/XSd62M=";
+        url = "git+https://github.com/ghostty-org/ghostty.git#8144ef4e73e70a4e9942fceb319819005f07fd37";
+        hash = "sha256-b5bDZw9spMLuY9XnUH65HWCaXVUKFhzRzHW0cgglVZI=";
         unpack = true;
       };
     }
