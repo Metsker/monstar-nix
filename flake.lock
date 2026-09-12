@@ -3,11 +3,11 @@
     "monstar-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1789057259,
-        "narHash": "sha256-AC1L+WL9yVr0asPQvtuzU8UPRclBh4mSnJzCXRIj/es=",
+        "lastModified": 1789149593,
+        "narHash": "sha256-eUQ3kPGSXDzU6EuoCSxNkimiBlM/0bMxUGukVlCS1eg=",
         "owner": "rockorager",
         "repo": "monstar",
-        "rev": "2a6e4db79db3fea0cd91a962e51d014e3edf89ee",
+        "rev": "2d88ee6734701621ef98565fe4ec9d275c85ced1",
         "type": "github"
       },
       "original": {
