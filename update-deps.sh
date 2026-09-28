@@ -15,7 +15,8 @@ echo "monstar rev: $rev"
 
 zon=$(curl -fsSL "https://raw.githubusercontent.com/rockorager/monstar/$rev/build.zig.zon")
 
-ghostty_rev=$(printf '%s' "$zon" | grep -oP 'ghostty\.git#\K[0-9a-f]{40}' | head -1)
+# Pinned either as a git url (ghostty.git#<rev>) or a GitHub tarball (archive/<rev>.tar.gz).
+ghostty_rev=$(printf '%s' "$zon" | grep -oP 'ghostty(\.git#|/archive/)\K[0-9a-f]{40}' | head -1 || true)
 [[ -n "$ghostty_rev" ]] || { echo "could not find ghostty rev in build.zig.zon" >&2; exit 1; }
 echo "ghostty rev: $ghostty_rev"
 
@@ -56,8 +57,10 @@ while IFS=$'\t' read -r key url hsh; do
         sri=$(nix store prefetch-file --json "$url" 2>/dev/null | jq -r '.hash')
         unpack=false
       else
-        echo "ERROR: '$key' is an https package dir (unpack=true); add a case for it." >&2
-        exit 1
+        # Package tarballs: --unpack strips the top dir, matching fetchzip's hash.
+        echo "  hashing (tarball) $key ..." >&2
+        sri=$(nix store prefetch-file --unpack --json "$url" 2>/dev/null | jq -r '.hash')
+        unpack=true
       fi ;;
     *) echo "ERROR: unknown url scheme for '$key': $url" >&2; exit 1 ;;
   esac
@@ -74,16 +77,14 @@ while IFS=$'\t' read -r key url hsh; do
 "
 done <<< "$deps"
 
-# Splice the monstar entries in just before the linkFarm's closing `]`.
+# Splice the monstar entries in before the entry list's closing `]`: the first
+# one after `in`, since newer files pass copyFarm a second (pathDependencyPackages) list.
 printf '%s\n' "$base" | awk -v blocks="$blocks" '
-  { lines[NR]=$0 }
-  END {
-    last=NR; while (last>0 && lines[last] ~ /^[[:space:]]*$/) last--
-    for (i=1;i<last;i++) print lines[i]
-    printf "%s", blocks
-    print lines[last]
-  }
-' > deps.nix
+  /^in$/ { body=1 }
+  body && !done && /^  \]$/ { printf "%s", blocks; done=1 }
+  { print }
+  END { if (!done) exit 1 }
+' > deps.nix || { echo "could not find the entry list's closing ] in build.zig.zon.nix" >&2; exit 1; }
 echo "wrote deps.nix"
 
 # Keep package.nix version in sync with build.zig.zon.
