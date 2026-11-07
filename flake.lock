@@ -3,11 +3,11 @@
     "monstar-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1793216631,
-        "narHash": "sha256-xMSdqsJbAYbPgz0tUUgntB/gj6AVstrM9885Ve/r/ME=",
+        "lastModified": 1794021110,
+        "narHash": "sha256-4XFQNQSQ98pnU/ezywaWIhD0mMq+InLTBbtJncw+5FY=",
         "owner": "rockorager",
         "repo": "monstar",
-        "rev": "203e1013b184b47e6c0482671882bb791aba21f3",
+        "rev": "5e1e74515d4b7fd46d4a55c77e51b21fbd470e5d",
         "type": "github"
       },
       "original": {
@@ -18,11 +18,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1784796856,
-        "narHash": "sha256-wWFrV5/Qbm+lyt5x20E/bSbfJiGKMo4RCxZV8cl/WZI=",
+        "lastModified": 1793540411,
+        "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e2587caef70cea85dd97d7daab492899902dbf5d",
+        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
         "type": "github"
       },
       "original": {

@@ -3,7 +3,7 @@
   stdenv,
   callPackage,
   src,
-  zig_0_16,
+  zig_0_17,
   pkg-config,
   wayland-scanner,
   wayland-protocols,
@@ -22,15 +22,15 @@ stdenv.mkDerivation (finalAttrs: {
   version = "1.1.0";
   inherit src;
 
-  # Complete Zig dep tree fetched by nix (ghostty's build.zig.zon.nix plus
-  # monstar's direct deps). We fetch with nix rather than `zig build`: zig
-  # 0.16's async HTTP fetcher can't run in the nix sandbox, and `--system`
-  # loops forever on this graph. Placed in ./zig-pkg, where zig 0.16 reads
-  # vendored packages, so the build runs fully offline.
+  # Complete Zig dep tree fetched by nix (ghostty's deps/packages.nix plus
+  # monstar's direct deps). We fetch with nix rather than `zig build`: zig's
+  # HTTP fetcher can't run in the nix sandbox, and `--system` fails on
+  # ghostty's `.path` deps (0.16 hung on them). Placed in ./zig-pkg, where
+  # zig 0.16+ reads vendored packages, so the build runs fully offline.
   deps = callPackage ./deps.nix { name = "monstar-zig-pkg-${finalAttrs.version}"; };
 
   nativeBuildInputs = [
-    zig_0_16
+    zig_0_17
     pkg-config
     wayland-scanner
     wayland-protocols

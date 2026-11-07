@@ -74,9 +74,10 @@ nix flake update monstar
   fontconfig, etc., but the GL driver itself comes from the host (on NixOS,
   enable `hardware.graphics`).
 - **Dependencies are vendored by Nix, not fetched by Zig.** `deps.nix` is
-  fetched with Nix's own fetchers and staged into `zig-pkg/`, because zig 0.16's
-  HTTP fetcher can't run inside the Nix sandbox and `zig build --system` hangs
-  on monstar's lazy ghostty dependency graph. **Consequence:** a plain
+  fetched with Nix's own fetchers and staged into `zig-pkg/`, because zig's
+  HTTP fetcher can't run inside the Nix sandbox and `zig build --system` fails
+  on ghostty's `.path` dependencies. It is ghostty's generated
+  `deps/packages.nix` with monstar's direct deps spliced in. **Consequence:** a plain
   `nix flake update monstar-src` is not enough when a bump changes monstar's
   dependency set — `deps.nix` must be regenerated too (run `./update-deps.sh`),
   or the build fails.
