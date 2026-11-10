@@ -16,6 +16,8 @@
   harfbuzz,
   dbus,
   libGL,
+  vulkan-headers,
+  vulkan-loader,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "monstar";
@@ -46,7 +48,11 @@ stdenv.mkDerivation (finalAttrs: {
     harfbuzz
     dbus
     libGL
+    vulkan-headers
   ];
+
+  # renderer = vulkan dlopens libvulkan.so.1, which nothing links, so autoPatchelf would miss it.
+  runtimeDependencies = [ vulkan-loader ];
 
   postConfigure = ''
     cp -rL ${finalAttrs.deps} zig-pkg
